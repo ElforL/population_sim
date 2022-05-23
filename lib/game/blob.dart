@@ -80,8 +80,8 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
       // eat it
       ++foodCount;
       // TODO check if this actually remove the food or should i change it to `.removeWhere()`.
-      //  In case `.remove()` remove the ref of Vector2 element in it and [_destinationCords] doesn't match any.
-      // this 👆 is such bad english i'm sorry me but i think you'll get it :).
+      //  In case `.remove()` removes the ref of Vector2 element in the list and [_destinationCords] doesn't match any.
+      // this 👆 is such bad english i'm sorry me but i think you'll get it :)
       gameRef.foodCords.remove(_destinationCords);
       _destinationCords = null;
 
