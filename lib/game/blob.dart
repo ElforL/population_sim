@@ -93,6 +93,12 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
   }
 
   void _searchingHandler() {
+    var shouldKeepSearching = _shouldKeepSearching();
+    if (!shouldKeepSearching) {
+      behaviour = BlobBehaviour.headingHome;
+      return;
+    }
+
     // Chose random point if [_destinationCords] is null
     _destinationCords ??= getRandomPointCords();
 
@@ -240,7 +246,7 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
       return false;
     }
     // Continue searching if energy is above 20%
-    return energyLvl > topEnergy * 0.20;
+    return energyLvl > topEnergy * 0.30;
     // TODO consider a different approach? like the energy it needs to reach the border?
     //  and update docs comments if changed
   }
