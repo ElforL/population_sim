@@ -178,15 +178,13 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
   }
 
   void _deductEnergy() {
-    if (behaviour == BlobBehaviour.atHome) return;
+    if (behaviour == BlobBehaviour.atHome || behaviour == BlobBehaviour.headingHome) return;
 
     // TODO create formula
     const amountToDeduct = 1;
     energyLvl -= amountToDeduct;
 
-    if (energyLvl <= 0) {
-      isAlive = false;
-    }
+    isAlive = energyLvl > 0;
   }
 
   /// Scans for [Food] in the [_senseRadius] and returns it.
