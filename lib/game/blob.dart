@@ -70,6 +70,7 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
 
     if (drawBehaviour) {
       drawBehaviourText(canvas);
+      drawCoords(canvas);
     }
     super.render(canvas);
   }
@@ -324,6 +325,29 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
       minWidth: 0,
     );
     final offset = Offset(0, 0);
+
+    textPainter.paint(
+      canvas,
+      offset,
+    );
+  }
+
+  /// Draws `behaviour.toShortString(true)`
+  void drawCoords(Canvas canvas) {
+    const textStyle = TextStyle();
+    final textSpan = TextSpan(
+      text: '${x.toStringAsFixed(2)}, ${y.toStringAsFixed(2)}',
+      style: textStyle,
+    );
+    final textPainter = TextPainter(
+      text: textSpan,
+      textDirection: TextDirection.ltr,
+      textAlign: TextAlign.center,
+    );
+    textPainter.layout(
+      minWidth: 0,
+    );
+    final offset = Offset(0, -15);
 
     textPainter.paint(
       canvas,
