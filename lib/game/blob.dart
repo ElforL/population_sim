@@ -312,7 +312,7 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
   void drawBehaviourText(Canvas canvas) {
     const textStyle = TextStyle();
     final textSpan = TextSpan(
-      text: behaviour.toShortString(true),
+      text: '${behaviour.toShortString(true)}: ${(_destinationCords?..round()) ?? ''}',
       style: textStyle,
     );
     final textPainter = TextPainter(
