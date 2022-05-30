@@ -59,8 +59,8 @@ class BlobsSim extends FlameGame {
       if (isEndOfDay) {
         _newDay();
       }
+      super.update(dt);
     }
-    super.update(dt);
   }
 
   void _newDay() {
