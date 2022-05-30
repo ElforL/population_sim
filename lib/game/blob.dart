@@ -12,6 +12,7 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
   static const _senseRadius = 50;
   static const _speed = 5;
   bool drawSenseCircle = true;
+  bool drawBehaviour = true;
 
   /// The radius the blob takes.
   // TODO
@@ -61,11 +62,16 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
       paint.color = const Color.fromARGB(255, 255, 60, 0);
     }
 
+    // Draw the blob
     canvas.drawCircle(
       const Offset(0, 0),
       blobRadius,
       paint,
     );
+
+    if (drawBehaviour) {
+      drawBehaviourText(canvas);
+    }
     super.render(canvas);
   }
 
@@ -293,6 +299,29 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
       );
     }
   }
+
+  /// Draws `behaviour.toShortString(true)`
+  void drawBehaviourText(Canvas canvas) {
+    const textStyle = TextStyle();
+    final textSpan = TextSpan(
+      text: behaviour.toShortString(true),
+      style: textStyle,
+    );
+    final textPainter = TextPainter(
+      text: textSpan,
+      textDirection: TextDirection.ltr,
+      textAlign: TextAlign.center,
+    );
+    textPainter.layout(
+      minWidth: 0,
+    );
+    final offset = Offset(0, 0);
+
+    textPainter.paint(
+      canvas,
+      offset,
+    );
+  }
 }
 
 enum BlobBehaviour {
@@ -306,5 +335,11 @@ enum BlobBehaviour {
   headingHome,
 
   /// The blob is safe at the border
-  atHome,
+  atHome;
+
+  String toShortString([bool capitalizeFirst = false]) {
+    var string = toString().split('.').last;
+    if (capitalizeFirst) string = string.replaceRange(0, 1, string.characters.first.toUpperCase());
+    return string;
+  }
 }
