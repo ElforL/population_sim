@@ -273,7 +273,7 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
   /// Returns the coordinates of the closest point on the border from ([startX],[startY])
   Vector2 getClosestBorderCordsFrom(double startX, double startY) {
     final width = gameRef.canvasSize.x;
-    final height = gameRef.canvasSize.x;
+    final height = gameRef.canvasSize.y;
 
     final distanceFromRight = gameRef.canvasSize.x - startX;
     final distanceFromBottom = gameRef.canvasSize.y - startY;
