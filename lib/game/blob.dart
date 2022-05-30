@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:ui';
 import 'dart:math' as math;
 
 import 'package:flame/components.dart';
@@ -218,7 +217,15 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
     return null;
   }
 
-  /// Returns true if arrived
+  /// Takes a step to [end].
+  ///
+  /// How:
+  /// ```dart
+  /// final xChange = (deltaX / distance) * _speed;
+  /// final yChange = (deltaY / distance) * _speed;
+  /// ```
+  ///
+  /// Returns `true` if arrived, `false` otherwise.
   bool _stepToDestination(Vector2 end) {
     final dx = end.x - x;
     final dy = end.y - y;
@@ -232,7 +239,6 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
       y += yChange;
       return false;
     } else {
-      // TODO should i remove this?
       // Snaps the blob to [end]
       x = end.x;
       y = end.y;
@@ -243,7 +249,7 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
   /// Returns
   /// - `true` if [foodCount] < 1,
   /// - `false` if [foodCount] >= 2
-  /// - Otherwise: `true` if energy is above 20%
+  /// - Otherwise: `true` if energy is above 30%
   bool _shouldKeepSearching() {
     if (foodCount < 1) {
       return true;
@@ -251,18 +257,20 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
     if (foodCount >= 2) {
       return false;
     }
-    // Continue searching if energy is above 20%
+    // Continue searching if energy is above 30%
     return energyLvl > topEnergy * 0.30;
     // TODO consider a different approach? like the energy it needs to reach the border?
     //  and update docs comments if changed
   }
 
+  /// Returns the coordinates of a random point as a [Vector2].
   Vector2 getRandomPointCords() {
     final rX = math.Random().nextDouble() * gameRef.canvasSize.x;
     final rY = math.Random().nextDouble() * gameRef.canvasSize.y;
     return Vector2(rX, rY);
   }
 
+  /// Returns the coordinates of the closest point on the border from ([startX],[startY])
   Vector2 getClosestBorderCordsFrom(double startX, double startY) {
     final width = gameRef.canvasSize.x;
     final height = gameRef.canvasSize.x;
