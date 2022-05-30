@@ -69,8 +69,8 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
     );
 
     if (drawBehaviour) {
-      drawBehaviourText(canvas);
-      drawCoords(canvas);
+      _drawBehaviourText(canvas);
+      _drawCoords(canvas);
     }
     super.render(canvas);
   }
@@ -308,7 +308,7 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
   }
 
   /// Draws `behaviour.toShortString(true)`
-  void drawBehaviourText(Canvas canvas) {
+  void _drawBehaviourText(Canvas canvas) {
     const textStyle = TextStyle();
     final textSpan = TextSpan(
       text: '${behaviour.toShortString(true)}: ${(_destinationCords?..round()) ?? ''}',
@@ -331,7 +331,7 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
   }
 
   /// Draws `behaviour.toShortString(true)`
-  void drawCoords(Canvas canvas) {
+  void _drawCoords(Canvas canvas) {
     const textStyle = TextStyle();
     final textSpan = TextSpan(
       text: '${x.toStringAsFixed(2)}, ${y.toStringAsFixed(2)}',
