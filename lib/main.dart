@@ -18,8 +18,27 @@ void main() async {
   var gameWidget = SimulatorWidget(game: blobsSim);
 
   runApp(MaterialApp(
-    home: gameWidget,
+    home: Padding(
+      padding: const EdgeInsets.all(20),
+      child: gameWidget,
+    ),
   ));
+}
+
+Center _skewed(SimulatorWidget gameWidget) {
+  return Center(
+    child: Transform(
+      transform: Matrix4.identity()
+        ..setEntry(3, 2, 0.001) // perspective
+        ..rotateX(-0.5),
+      alignment: FractionalOffset.center,
+      child: SizedBox(
+        height: 600,
+        width: 600,
+        child: gameWidget,
+      ),
+    ),
+  );
 }
 
 class SimulatorWidget extends StatefulWidget {
