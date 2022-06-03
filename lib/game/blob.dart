@@ -101,6 +101,7 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
   void _searchingHandler() {
     var shouldKeepSearching = _shouldKeepSearching();
     if (!shouldKeepSearching) {
+      _destinationCords = null;
       behaviour = BlobBehaviour.headingHome;
       return;
     }
@@ -140,6 +141,7 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
     if (_shouldKeepSearching()) {
       behaviour = BlobBehaviour.searching;
     } else {
+      _destinationCords = null;
       behaviour = BlobBehaviour.headingHome;
     }
   }
@@ -274,8 +276,8 @@ class Blob extends PositionComponent with HasGameRef<BlobsSim> {
     final width = gameRef.canvasSize.x;
     final height = gameRef.canvasSize.y;
 
-    final distanceFromRight = gameRef.canvasSize.x - startX;
-    final distanceFromBottom = gameRef.canvasSize.y - startY;
+    final distanceFromRight = width - startX;
+    final distanceFromBottom = height - startY;
 
     bool closerToLeft = startX <= distanceFromRight;
     bool closerToTop = startY <= distanceFromBottom;
