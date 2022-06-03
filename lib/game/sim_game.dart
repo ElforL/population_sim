@@ -79,13 +79,17 @@ class BlobsSim extends FlameGame {
     }
   }
 
-  void _addFood() {
+  /// add [initialFoodCount] of [Food] on the board randomly
+  ///
+  /// [padding] is the distance from the edges that won't have [Food].
+  /// [Food] will not be added in this distance from the edges.
+  void _addFood([double padding = 50]) {
     children.removeWhere((element) => element is Food);
 
     for (var i = 0; i < initialFoodCount; i++) {
-      final rX = math.Random().nextDouble() * canvasSize.x;
-      final rY = math.Random().nextDouble() * canvasSize.y;
-      final food = Food()..position = Vector2(rX, rY);
+      final rX = math.Random().nextDouble() * (canvasSize.x - padding * 2);
+      final rY = math.Random().nextDouble() * (canvasSize.y - padding * 2);
+      final food = Food()..position = Vector2(rX + padding, rY + padding);
       add(food);
     }
   }
